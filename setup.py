@@ -10,7 +10,10 @@ setup(
     zip_safe=False,
     url='https://github.com/vklap/demo-ddd-python',
     install_requires=[
-        'Flask==0.10.1'
+        'Flask==0.10.1',
+        'scikit-learn==0.17.1',
+        'numpy==1.11.0',
+        'scipy==0.17.0'
     ],
     test_requires=[]
 )

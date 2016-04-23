@@ -1,10 +1,11 @@
+from app.domain.entry import Entry
 from app.infrastructure.repositories import connect_db
 
 
 def get_entries():
     with connect_db() as db:
         cur = db.execute('select title, text from entries order by id desc')
-        entries = [dict(title=row[0], text=row[1]) for row in cur.fetchall()]
+        entries = [Entry(title=row[0], text=row[1]) for row in cur.fetchall()]
         return entries
 
 

@@ -15,3 +15,11 @@ class EntryTestCase(unittest.TestCase):
         self.assertEqual(self._entry_with_full_data.text, self._text)
         self.assertEqual(self._entry_with_full_data.tags, self._tags)
         self.assertEqual(self._entry_with_full_data.entry_id, self._entry_id)
+
+    def test_set_tags_from_comma_separated_string(self):
+        self._entry_with_full_data.tags = 'tag5,tag10'
+        self.assertEqual(self._entry_with_full_data.tags, ['tag5', 'tag10'])
+
+    def test_set_tags_from_none_value(self):
+        self._entry_with_full_data.tags = None
+        self.assertIsNone(self._entry_with_full_data.tags)

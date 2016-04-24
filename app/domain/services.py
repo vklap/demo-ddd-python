@@ -2,7 +2,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def extract_tags(text):
-    tfidf_vect = TfidfVectorizer(stop_words=['in', 'the', 'on', 'a', 'she', 'he', 'and', 'or', 'to', 'for'])
+    tfidf_vect = TfidfVectorizer(stop_words=['in', 'the', 'on', 'a', 'she', 'he', 'and', 'or', 'to', 'for', 'of', 'that'])
     word_tfidf = tfidf_vect.fit_transform([text])
     word_list = tfidf_vect.get_feature_names()
 

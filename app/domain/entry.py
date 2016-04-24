@@ -3,4 +3,8 @@ class Entry:
         self.title = title
         self.text = text
         self.tags = tags
+        if tags is None:
+            self.tags = None
+        else:
+            self.tags = tags.split(',')
         self.entry_id = entry_id

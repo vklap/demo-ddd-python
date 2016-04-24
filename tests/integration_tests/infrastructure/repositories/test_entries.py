@@ -32,7 +32,7 @@ class EntriesTestCase(AppTestCase):
         repo.update_entry_tags(self.entry1.entry_id, tags)
         result = repo.get_entry_by_id(self.entry1.entry_id)
 
-        self.assertEqual(result.tags, 'super,great')
+        self.assertEqual(result.tags, tags)
 
     def test_get_entry_by_id(self):
         result = repo.get_entry_by_id(self.entry1.entry_id)

@@ -9,7 +9,7 @@ def get_entry_by_id(entry_id):
         cur = db.cursor()
         cur.execute('select title, text, tags, id from entries where id=%s' % int(entry_id))
         row = cur.fetchone()
-        entry = Entry(title=row['title'], text=row['text'], tags=row['tags'], entry_id=row['id'])
+        entry = Entry(title=row['title'], text=row['text'], tags=_string_to_tags(row['tags']), entry_id=row['id'])
         return entry
 
 
@@ -17,7 +17,7 @@ def get_entries():
     with connect_db() as db:
         db.row_factory = lite.Row
         cur = db.execute('select title, text, tags, id from entries order by id desc')
-        entries = [Entry(title=row['title'], text=row['text'], tags=row['tags'], entry_id=row['id']) for row in cur.fetchall()]
+        entries = [Entry(title=row['title'], text=row['text'], tags=_string_to_tags(row['tags']), entry_id=row['id']) for row in cur.fetchall()]
         return entries
 
 
@@ -30,9 +30,20 @@ def add_entry(entry):
 
 
 def update_entry_tags(entry_id, tags):
-    tags_string = ','.join(tags)
     with connect_db() as db:
-        db.execute('update entries set tags=? where id=?', [tags_string, entry_id])
+        db.execute('update entries set tags=? where id=?', [_tags_to_string(tags), entry_id])
         db.commit()
+
+
+def _tags_to_string(tags):
+    if not tags:
+        return None
+    return ','.join(map(lambda x: x.strip(), tags))
+
+
+def _string_to_tags(comma_separated_tags):
+    if comma_separated_tags is None:
+        return []
+    return comma_separated_tags.split(',')
 
 
